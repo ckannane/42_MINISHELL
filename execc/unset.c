@@ -6,7 +6,7 @@
 /*   By: ckannane <ckannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 10:05:00 by ckannane          #+#    #+#             */
-/*   Updated: 2023/09/21 01:14:25 by ckannane         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:34:48 by ckannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	delete_val(t_val **head, char *str)
 	if (current != NULL && ft_strcmp(current->name, str) == 0)
 	{
 		*head = current->next;
+		free(current->value);
+		free(current->name);
 		free(current);
 		return ;
 	}
@@ -32,6 +34,8 @@ void	delete_val(t_val **head, char *str)
 	if (current == NULL)
 		return ;
 	pre->next = current->next;
+	free(current->value);
+	free(current->name);
 	free(current);
 }
 

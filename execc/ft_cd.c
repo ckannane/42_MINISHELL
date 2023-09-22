@@ -6,7 +6,7 @@
 /*   By: ckannane <ckannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:30:39 by ckannane          #+#    #+#             */
-/*   Updated: 2023/09/22 14:48:41 by ckannane         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:48:52 by ckannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,17 @@ void	apply_cd(t_zid *new_path, t_zid	*old_path, t_zid *zone)
 	free(old_path);
 }
 
+int	find_pwd(t_val *env)
+{
+	while (env)
+	{
+		if(ft_strcmp(env->name, "PWD") == 0)
+			return (1);
+		env = env->next;
+	}
+	return (0);
+}
+
 void	ft_cd(t_com *com, t_zid *zone)
 {
 	t_zid	*oldpwd_path;
@@ -72,13 +83,13 @@ void	ft_cd(t_com *com, t_zid *zone)
 	*oldpwd_path = *zone;
 	pwd_path = malloc(sizeof(t_zid));
 	*pwd_path = *zone;
-	while (ft_strcmp(pwd_path->env->name, "PWD") != 0)
+	while (pwd_path->env && ft_strcmp(pwd_path->env->name, "PWD") != 0)
 		pwd_path->env = pwd_path->env -> next;
-	while (ft_strcmp(pwd_path->exp->name, "PWD") != 0)
+	while (pwd_path->exp && ft_strcmp(pwd_path->exp->name, "PWD") != 0)
 		pwd_path->exp = pwd_path->exp-> next;
-	while (ft_strcmp(oldpwd_path->env->name, "OLDPWD") != 0)
+	while (oldpwd_path->env && ft_strcmp(oldpwd_path->env->name, "OLDPWD") != 0)
 		oldpwd_path->env = oldpwd_path->env -> next;
-	while (ft_strcmp(oldpwd_path->exp->name, "OLDPWD") != 0)
+	while (oldpwd_path->exp && ft_strcmp(oldpwd_path->exp->name, "OLDPWD") != 0)
 		oldpwd_path->exp = oldpwd_path->exp -> next;
 	if (com->arg[0] == NULL || (ft_strcmp(com->arg[0], "~") == 0 \
 	&& com->arg[1] == NULL))
@@ -88,5 +99,6 @@ void	ft_cd(t_com *com, t_zid *zone)
 		perror("cd");
 		zone->exito = 1;
 	}
-	apply_cd(pwd_path, oldpwd_path, zone);
+	if (find_pwd(oldpwd_path->env))
+		apply_cd(pwd_path, oldpwd_path, zone);
 }

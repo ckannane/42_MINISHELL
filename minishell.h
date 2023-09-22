@@ -6,7 +6,7 @@
 /*   By: ckannane <ckannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:07:17 by ckannane          #+#    #+#             */
-/*   Updated: 2023/09/22 15:12:31 by ckannane         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:49:36 by ckannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,5 @@ t_slp_p	*init_slp_p(void);
 void	fill_it(t_slp_p	*val, char *word, char *input, char **words);
 void	herdoc(t_com *com);
 int		is_empty(const char *line);
+int		find_pwd(t_val *env);
 #endif

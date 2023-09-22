@@ -6,7 +6,7 @@
 /*   By: ckannane <ckannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:07:29 by ckannane          #+#    #+#             */
-/*   Updated: 2023/09/16 19:47:14 by ckannane         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:50:58 by ckannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,16 @@ void	ft_pwd(t_zid *zone)
 	t_val	*current;
 
 	current = zone->env;
-	while (ft_strcmp(current->name, "PWD") != 0)
-		current = current -> next;
-	if (current -> next != NULL)
-		printf("%s\n", current->value);
-	else
+	if (find_pwd(current))
 	{
-		perror("pwd");
-		zone->exito = 1;
+		while (ft_strcmp(current->name, "PWD") != 0)
+			current = current -> next;
+		if (current -> next != NULL)
+			printf("%s\n", current->value);
+		else
+		{
+			perror("pwd");
+			zone->exito = 1;
+		}
 	}
 }

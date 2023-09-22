@@ -6,7 +6,7 @@
 /*   By: ckannane <ckannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 12:12:46 by ckannane          #+#    #+#             */
-/*   Updated: 2023/09/20 00:46:39 by ckannane         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:34:00 by ckannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,20 @@ void	launch_execve(t_com *com, t_zid *zone, char **env_set, int i)
 	if (my_access(com->commad, X_OK) == 0)
 		acces(com->commad, com->slp, env_set);
 	if (search_path(zone->env) == 1)
-		path = get_path(com->commad, zone->env);
-	while (path[i])
 	{
-		if (my_access(path[i], X_OK) == 0)
+		path = get_path(com->commad, zone->env);
+		while (path[i])
 		{
-			acces(path[i], com->after_red, env_set);
-			exit(0);
+			if (my_access(path[i], X_OK) == 0)
+			{
+				acces(path[i], com->after_red, env_set);
+				exit(0);
+			}
+			i++;
 		}
-		i++;
 	}
-	ft_putendl_fd("command not found", 2);
+	else
+		ft_putendl_fd("command not found", 2);
 	exit(127);
 }
 
