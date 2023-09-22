@@ -1,0 +1,6 @@
+cd ~
+check export variables name
+export l != (l='')
+cat << lol1 << lol2 << lol3
+redirection in first argument
+
