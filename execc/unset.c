@@ -46,7 +46,7 @@ void	ft_unset(t_com *com, t_zid *zone)
 	i = 0;
 	while (com->arg[i])
 	{
-		if (ft_strcmp(com->arg[i], "_"))
+		if (ft_strcmp(com->arg[i], "_") && (zone->env || zone->exp))
 		{
 			delete_val(&zone->exp, com->arg[i]);
 			delete_val(&zone->env, com->arg[i]);
