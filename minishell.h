@@ -6,7 +6,7 @@
 /*   By: ckannane <ckannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:07:17 by ckannane          #+#    #+#             */
-/*   Updated: 2023/09/22 20:49:36 by ckannane         ###   ########.fr       */
+/*   Updated: 2023/09/23 11:39:31 by ckannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_exn
 void	rl_replace_line(const char *text, int clear_undo);
 char	**split_arg(char *str);
 int		ft_strcmp(char *s1, char *s2);
-void	ft_echo(t_com *p);
+void	ft_echo(t_com *p, t_zid *zone);
 int		ft_strcmp(char *s1, char *s2);
 void	ft_pwd(t_zid *zone);
 void	ft_export(t_com *com, t_zid *zone);
@@ -125,8 +125,8 @@ void	launch_execve(t_com *com, t_zid *zone, char **env_set, int i);
 void	acces(char *com, char **all_com, char **env_set);
 int		search_path(t_val *env);
 int		my_access(char *path, int mode);
-void	install_arg(t_com *com, int num_args);
-int		set_arg_size(t_com *com);
+void	install_arg(t_com *com, int num_args, int n);
+int		set_arg_size(t_com *com, int n);
 char	*redirection_split(char *input);
 char	*fill_the_red(int len, int i, int j, char *input);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
@@ -145,4 +145,5 @@ void	fill_it(t_slp_p	*val, char *word, char *input, char **words);
 void	herdoc(t_com *com);
 int		is_empty(const char *line);
 int		find_pwd(t_val *env);
+int		find_com(char **str);
 #endif
